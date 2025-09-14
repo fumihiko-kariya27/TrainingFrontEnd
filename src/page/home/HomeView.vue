@@ -1,14 +1,26 @@
 <script setup>
 import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/userStore';
+import { useTrainingStore } from '../../stores/trainingStore';
 import { storeToRefs } from 'pinia';
 
 const userStore = useUserStore();
-const { users, loading, error } = storeToRefs(userStore);
+const router = useRouter();
+const { users, loading } = storeToRefs(userStore);
+
+const trainingStore = useTrainingStore();
+const { trainings } = storeToRefs(trainingStore);
 
 onMounted(async () => {
   await userStore.fetchUsers();
 });
+
+async function getTrainingHistory(userId){
+  await trainingStore.getTrainingHistories(userId);
+  // 受講履歴取得後は受講履歴一覧画面に遷移する
+  router.push('/trainingHistory');
+}
 </script>
 <template>
   <div>
@@ -37,6 +49,11 @@ onMounted(async () => {
           </template>
         </el-table-column>
         <el-table-column prop="joinDate" label="入会日" width="150"/> 
+        <el-table-column fixed="right" min-width="120">
+          <template #default="scope">
+            <el-button type="primary" size="small" @click="getTrainingHistory(scope.row.id)">受講履歴</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
   </div>
