@@ -4,7 +4,12 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('../page/home/HomeView.vue'),
+    component: () => import('../page/home/Home.vue'),
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: () => import('../page/user/UserTable.vue'),
   },
   {
     path: '/trainingHistory',
