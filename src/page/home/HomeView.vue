@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/userStore';
 import { useTrainingStore } from '../../stores/trainingStore';
@@ -21,6 +21,15 @@ async function getTrainingHistory(userId){
   // 受講履歴取得後は受講履歴一覧画面に遷移する
   router.push('/trainingHistory');
 }
+
+const currentPage = ref(1);
+const pageSize = ref(10);
+
+const pagenatedUser = computed(() => {
+  const start = (currentPage.value - 1) * pageSize.value;
+  const end = start + pageSize.value;
+  return users.value.slice(start, end);
+});
 </script>
 <template>
   <div>
@@ -31,7 +40,7 @@ async function getTrainingHistory(userId){
         <h4>ユーザーデータは見つかりませんでした</h4>
       </div>
       <!-- データが空の場合の表示 -->
-      <el-table v-else :data="users" style="width: 100%">
+      <el-table v-else :data="pagenatedUser" style="width: 100%">
         <el-table-column label="氏名" width="250">
           <template #default="scope">
             {{ scope.row.firstName }} {{ scope.row.lastName }}
@@ -55,6 +64,15 @@ async function getTrainingHistory(userId){
           </template>
         </el-table-column>
       </el-table>
+      <div class="flex justify-center mt-4">
+        <el-pagination
+          layout="prev, pager, next"
+          :total="users.length"
+          :page-size="pageSize"
+          :current-page="currentPage"
+          @current-change="currentPage = $event"
+        />
+      </div>
     </div>
   </div>
 </template>
