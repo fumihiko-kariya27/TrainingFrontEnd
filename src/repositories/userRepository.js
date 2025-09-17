@@ -1,6 +1,6 @@
 import { getRequest } from '@/api/apiClient';
 
-const resource = '/training/user';
+const resource = '/user';
 
 export default {
   /**
