@@ -1,6 +1,13 @@
 <script setup>
 import HomeItem from './HomeItem.vue';
 import { User, Notebook } from '@element-plus/icons-vue';
+import { useTrainingStore } from '@/stores/trainingStore';
+
+const trainingStore = useTrainingStore();
+
+async function fetchTrainings(){
+  await trainingStore.getTrainings();
+}
 </script>
 <template>
   <div class="bg-white shadow-lg rounded-lg p-6 md:p-8">
@@ -19,7 +26,7 @@ import { User, Notebook } from '@element-plus/icons-vue';
         登録されているユーザー情報を確認・管理します。
       </HomeItem>
       <!-- トレーニング一覧画面 -->
-      <HomeItem title="コース一覧" link="/training" :icon="Notebook">
+      <HomeItem title="コース一覧" link="/training" :icon="Notebook" @click="fetchTrainings">
         提供されているトレーニングコースを確認します。
       </HomeItem>
     </div>

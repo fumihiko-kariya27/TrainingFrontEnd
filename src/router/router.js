@@ -12,6 +12,11 @@ const routes = [
     component: () => import('../page/user/UserTable.vue'),
   },
   {
+    path: '/training',
+    name: 'training',
+    component: () => import('../page/training/Training.vue'),
+  },
+  {
     path: '/trainingHistory',
     name: 'trainingHistory',
     component: () => import('../page/training/TrainingHistories.vue'),
