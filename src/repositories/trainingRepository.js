@@ -7,3 +7,7 @@ export const getHistories = async (userId) => {
     userId: userId,
   });
 };
+
+export const getTraining = async () => {
+  return getRequest(`${resource}`);
+};
