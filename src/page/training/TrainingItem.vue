@@ -7,6 +7,10 @@ const props = defineProps({
 });
 
 const isApplied = function(){
+    if(props.training.applyStartDate !== null && props.training.applyEndDate === null){
+        // 適用開始日が設定され、適用終了日が明示的に指定されてない場合は受付中である
+        return true;
+    }
     const today = new Date();
     const startDate = new Date(props.training.startDate);
     const endDate = new Date(props.training.endDate);
