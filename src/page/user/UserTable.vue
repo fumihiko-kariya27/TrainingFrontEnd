@@ -41,11 +41,7 @@ const pagenatedUser = computed(() => {
       </div>
       <!-- データが空の場合の表示 -->
       <el-table v-else :data="pagenatedUser" style="width: 100%">
-        <el-table-column label="氏名" width="250">
-          <template #default="scope">
-            {{ scope.row.firstName }} {{ scope.row.lastName }}
-          </template>
-        </el-table-column>
+        <el-table-column prop="name" label="氏名" width="250" />
         <el-table-column prop="status" label="グレード" width="150">
           <template #default="scope">
             <span
