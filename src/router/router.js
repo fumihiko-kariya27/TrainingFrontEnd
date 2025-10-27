@@ -21,6 +21,12 @@ const routes = [
     name: 'trainingHistory',
     component: () => import('../page/training/TrainingHistories.vue'),
   },
+  {
+    path: '/training/:trainingCode',
+    name: 'trainingDetail',
+    component: () => import('../page/training/TrainingDetail.vue'),
+    props: true,
+  },
 ];
 
 const router = createRouter({
