@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+const accessToken = localStorage.getItem('accessToken');
+if (accessToken) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+}
+
 const apiClient = axios.create({
   baseURL: 'http://localhost:8080',
   timeout: 5000,
