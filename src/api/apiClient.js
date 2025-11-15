@@ -1,10 +1,5 @@
 import axios from 'axios';
 
-const accessToken = localStorage.getItem('accessToken');
-if (accessToken) {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-}
-
 const apiClient = axios.create({
   baseURL: 'http://localhost:8080',
   timeout: 5000,
@@ -12,6 +7,19 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+apiClient.interceptors.request.use(
+  (config) => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 /**
  * GETリクエストを送信する
