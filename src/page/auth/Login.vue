@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/authStore';
 
 const authStore = useAuthStore();
@@ -20,6 +20,16 @@ const handleLogin = async () => {
     loading.value = false;
   }
 };
+
+// Enter押下時にログイン処理を実行
+onMounted(() => {
+  const loginForm = document.getElementById('loginForm');
+  loginForm.addEventListener('keydown', event => {
+    if(event.key === 'Enter'){
+      handleLogin();
+    }
+  });
+});
 </script>
 <template>
   <div class="flex items-center justify-center min-h-screen bg-gray-100">
@@ -29,7 +39,7 @@ const handleLogin = async () => {
           <h2 class="text-2xl font-bold text-gray-800">ログイン</h2>
         </div>
       </template>
-      <el-form @submit.prevent="handleLogin">
+      <el-form id="loginForm" @submit.prevent="handleLogin">
         <el-form-item label="ユーザー名">
           <el-input v-model="username" placeholder="Username" />
         </el-form-item>
