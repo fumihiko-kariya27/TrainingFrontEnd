@@ -12,9 +12,6 @@ async function fetchTrainings(){
 <template>
   <div class="bg-white shadow-lg rounded-lg p-6 md:p-8">
     <div class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-800">
-        トレーニング管理システム
-      </h1>
       <p class="text-gray-500 mt-2">
         ようこそ！メニューから操作を選択してください。
       </p>
