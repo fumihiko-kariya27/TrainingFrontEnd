@@ -20,13 +20,13 @@ const statusMap = {
     </div>
     <div class="flex flex-col space-y-1">
       <div class="text-lg font-bold uppercase tracking-wide">
-        【{{ history.course.code }}】
+        【{{ history.programCode }}】
       </div>
       <div class="text-base text-gray-800">
-        {{ history.course.collectName }}
+        {{ history.collectName }}
       </div>
       <div class="text-sm text-gray-600">
-        {{ history.course.description }}
+        {{ history.description }}
       </div>
     </div>
   </el-card>
