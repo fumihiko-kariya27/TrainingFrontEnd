@@ -1,5 +1,8 @@
 <script setup>
 import Header from '@/page/header/Header.vue';
+import { useAuthStore } from '@/stores/authStore';
+
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -13,7 +16,7 @@ import Header from '@/page/header/Header.vue';
           <RouterLink to="/" class="block text-gray-700 hover:text-blue-600 font-medium">
             ホーム
           </RouterLink>
-          <RouterLink to="/users" class="block text-gray-700 hover:text-blue-600 font-medium">
+          <RouterLink v-if="authStore.isAdmin()" to="/users" class="block text-gray-700 hover:text-blue-600 font-medium">
             ユーザー管理
           </RouterLink>
           <RouterLink to="/training" class="block text-gray-700 hover:text-blue-600 font-medium">

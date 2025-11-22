@@ -30,13 +30,19 @@ const routes = [
     path: '/trainingHistory',
     name: 'trainingHistory',
     component: () => import('../page/training/TrainingHistories.vue'),
-    meta: { requiresAuth: true }, // 認証が必要
+    meta: { requiresAuth: true },
   },
   {
     path: '/training/:trainingCode',
     name: 'trainingDetail',
     component: () => import('../page/training/TrainingDetail.vue'),
     props: true,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/training/create',
+    name: 'trainingCreate',
+    component: () => import('../page/training/TrainingCreate.vue'),
     meta: { requiresAuth: true },
   },
 ];
