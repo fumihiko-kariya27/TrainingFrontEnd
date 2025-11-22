@@ -2,12 +2,31 @@ import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import authRepository from '@/repositories/authRepository';
 import router from '@/router/router';
+import { jwtDecode } from 'jwt-decode';
 
 export const useAuthStore = defineStore('auth', () => {
   const accessToken = ref(localStorage.getItem('accessToken') || null);
   const user = ref(JSON.parse(localStorage.getItem('user')) || null);
 
   const isAuthenticated = computed(() => !!accessToken.value);
+
+  const roles = computed(() => {
+    if(!accessToken.value){
+      return [];
+    }
+
+    const decoded = jwtDecode(accessToken.value);
+    console.log('Decoded JWT:', decoded);
+    return decoded.roles || [];
+  });
+
+  function hasRole(role){
+    return roles.value.includes(role);
+  }
+
+  function isAdmin(){
+    return hasRole('ADMIN');
+  }
 
   /**
    * ログイン処理
@@ -46,6 +65,9 @@ export const useAuthStore = defineStore('auth', () => {
     accessToken,
     user,
     isAuthenticated,
+    roles,
+    hasRole,
+    isAdmin,
     login,
     logout,
   };
