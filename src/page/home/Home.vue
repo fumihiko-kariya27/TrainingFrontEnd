@@ -29,6 +29,9 @@ const authStore = useAuthStore();
       <HomeItem title="コース一覧" link="/training" :icon="Notebook" @click="fetchTrainings">
         提供されているトレーニングコースを確認します。
       </HomeItem>
+      <HomeItem title="コース登録" link="/training/create" :icon="Notebook">
+        新しいトレーニングコースを登録します。
+      </HomeItem>
     </div>
   </div>
 </template>

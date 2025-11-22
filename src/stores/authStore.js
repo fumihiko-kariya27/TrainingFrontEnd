@@ -16,7 +16,6 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     const decoded = jwtDecode(accessToken.value);
-    console.log('Decoded JWT:', decoded);
     return decoded.roles || [];
   });
 
