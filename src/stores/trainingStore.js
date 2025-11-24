@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { getTraining, getHistories } from '../repositories/trainingRepository';
+import { getTraining, getHistories, save } from '../repositories/trainingRepository';
 
 export const useTrainingStore = defineStore('training', () => {
   const trainings = ref([]);
   const historiesByUser = ref([]);
   const cache = ref(new Map());
   const loading = ref(false);
+  const saving = ref(false);
   const error = ref(null);
 
   async function getTrainings() {
@@ -59,6 +60,18 @@ export const useTrainingStore = defineStore('training', () => {
     }
   }
 
+  async function saveTraining(training){
+    saving.value = true;
+    try {
+      await save(training);
+    } catch(e){
+      error.value = e;
+      console.error('Failed to save trainings:', e);
+    } finally {
+      saving.value = false;
+    }
+  }
+
   return {
     trainings,
     historiesByUser,
@@ -66,5 +79,6 @@ export const useTrainingStore = defineStore('training', () => {
     error,
     getTrainings,
     getTrainingHistories,
+    saveTraining,
   };
 });
