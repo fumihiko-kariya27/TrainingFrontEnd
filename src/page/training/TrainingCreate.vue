@@ -1,5 +1,9 @@
 <script setup>
 import { reactive } from 'vue';
+import { useTrainingStore } from '@/stores/trainingStore'
+
+const trainingStore = useTrainingStore();
+
 const form = reactive({
     programCode: '',
     correctName: '',
@@ -51,7 +55,15 @@ const rules = {
 }
 
 function onSubmit(){
-    console.log('Form submitted:', form);
+    // 時刻情報は不要なため、日付のみに開始日・終了日を整形する
+    if(form.startDate){
+        form.startDate = new Date(form.startDate).toLocaleDateString('sv-SE').replaceAll('-', '/');
+    }
+    if(form.endDate){
+        form.endDate = new Date(form.endDate).toLocaleDateString('sv-SE').replaceAll('-', '/');
+    }
+
+    trainingStore.saveTraining(form)
 }
 
 function onCancel(){

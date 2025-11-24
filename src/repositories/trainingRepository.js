@@ -1,4 +1,4 @@
-import { getRequest } from '@/api/apiClient';
+import { getRequest, postRequest } from '@/api/apiClient';
 
 const resource = '/training';
 
@@ -11,3 +11,7 @@ export const getHistories = async (userId) => {
 export const getTraining = async () => {
   return getRequest(`${resource}`);
 };
+
+export const save = async (training) => {
+  return postRequest(`${resource}/create`, training);
+}
