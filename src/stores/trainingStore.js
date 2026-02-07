@@ -72,6 +72,30 @@ export const useTrainingStore = defineStore('training', () => {
     }
   }
 
+  async function deleteTraining(trainingId){
+    saving.value = true;
+    try {
+      await deleteTraining(trainingId);
+    } catch(e){
+      error.value = e;
+      console.error('Failed to delete training:', e);
+    } finally {
+      saving.value = false;
+    }
+  }
+
+  async function updateTraining(training){
+    saving.value = true;
+    try {
+      await updateTraining(training);
+    } catch(e){
+      error.value = e;
+      console.error('Failed to update training:', e);
+    } finally {
+      saving.value = false;
+    }
+  }
+
   return {
     trainings,
     historiesByUser,
@@ -80,5 +104,7 @@ export const useTrainingStore = defineStore('training', () => {
     getTrainings,
     getTrainingHistories,
     saveTraining,
+    deleteTraining,
+    updateTraining
   };
 });

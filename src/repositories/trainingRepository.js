@@ -15,3 +15,13 @@ export const getTraining = async () => {
 export const save = async (training) => {
   return postRequest(`${resource}/create`, training);
 }
+
+export const deleteTraining = async (trainingId) => {
+  return postRequest(`${resource}/delete`, {
+    trainingId: trainingId,
+  });
+}
+
+export const updateTraining = async (training) => {
+  return postRequest(`${resource}/update`, training);
+}
