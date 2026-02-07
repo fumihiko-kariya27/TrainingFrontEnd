@@ -1,6 +1,11 @@
 <script setup>
-import { reactive } from 'vue';
+import { ref, reactive } from 'vue';
 import { useTrainingStore } from '@/stores/trainingStore'
+import OKDialog from '@/components/dialog/OKDialog.vue'
+
+const modalVisible = ref(false);
+const title = ref('');
+const message = ref('');
 
 const trainingStore = useTrainingStore();
 
@@ -63,7 +68,17 @@ function onSubmit(){
         form.endDate = new Date(form.endDate).toLocaleDateString('sv-SE').replaceAll('-', '/');
     }
 
-    trainingStore.saveTraining(form)
+    try {
+        trainingStore.saveTraining(form);
+
+        title.value = '登録完了';
+        message.value = `プログラムコード[${form.programCode}]を追加しました`;
+    } catch(e){
+        title.value = '登録失敗';
+        message.value = `プログラムコード[${form.programCode}]の追加に失敗しました`;
+    } finally {
+        modalVisible.value = true;
+    }
 }
 
 function onCancel(){
@@ -71,6 +86,12 @@ function onCancel(){
 }
 </script>
 <template>
+    <OKDialog
+    v-model = "modalVisible"
+    :dialogTitle = "title"
+    :dialogMessage = "message"
+    />
+
     <el-form :model="form" :rules="rules" label-width="auto" style="max-width: 600px">
         <el-form-item label="プログラムコード" prop="programCode">
             <el-input v-model="form.programCode" />

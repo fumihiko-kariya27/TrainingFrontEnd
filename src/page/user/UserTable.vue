@@ -33,6 +33,9 @@ const pagenatedUser = computed(() => {
 </script>
 <template>
   <div>
+    <div class="border-b border-gray-200 pb-5 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold leading-tight tracking-tight text-gray-900">ユーザー一覧</h1>
+    </div>
     <div v-if="loading">Now Loading...</div>
     <div v-else>
       <!-- データが空の場合の表示 -->
