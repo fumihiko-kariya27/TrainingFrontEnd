@@ -6,11 +6,11 @@ const authStore = useAuthStore();
 </script>
 
 <template>
-  <el-container class="min-h-screen">
+  <el-container class="h-screen">
     <el-header class="bg-gray-300 shadow px-6 py-4 flex w-full items-center justify-between">
       <Header />
     </el-header>
-    <el-container>
+    <el-container class="overflow-hidden">
       <el-aside width="220px" class="bg-gray-100 shadow-md p-4 border-r border-gray-200">
         <nav class="space-y-4">
           <RouterLink to="/" class="block text-gray-700 hover:text-blue-600 font-medium">
@@ -24,10 +24,8 @@ const authStore = useAuthStore();
           </RouterLink>
         </nav>
       </el-aside>
-      <el-main class="p-6">
-        <div class="bg-white p-6 rounded-xl shadow">
-          <router-view />
-        </div>
+      <el-main class="overflow-auto">
+        <router-view />
       </el-main>
     </el-container>
   </el-container>
